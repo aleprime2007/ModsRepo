@@ -1,0 +1,55 @@
+{
+   "Groups": [
+      {
+         "Name": "Main",
+         "DisplayName": "Configuration",
+         "Elements": [
+            {
+               "Name": "CodeFile",
+               "DisplayName": "Boost Damage Mode",
+               "Description": [
+                  "Select when the boost can damage the enemies."
+               ],
+               "Type": "BoostType",
+               "MinValue": null,
+               "MaxValue": null,
+               "DefaultValue": "BoostFix.hmm"
+            
+            }
+         ]
+      }
+   ],
+   "Enums": {
+		"BoostType": [
+         {
+            "DisplayName": "Default",
+            "Value": "BoostFix.hmm",
+            "Description": [
+               "Always damage enemies while boosting."
+            ]
+         },
+		 {
+            "DisplayName": "Power Boost Only",
+            "Value": "BoostFix_PowerBoost.hmm",
+            "Description": [
+               "Only damage enemies when Power Boost is active."
+            ]
+         },
+		 {
+            "DisplayName": "Cyber Space Only",
+            "Value": "BoostFix_CyberSpace.hmm",
+            "Description": [
+               "Only damage enemies in Cyber Space."
+            ]
+         },
+		 {
+            "DisplayName": "Power Boost and Cyber Space",
+            "Value": "BoostFix_PowerBoost_CyberSpace.hmm",
+            "Description": [
+               "Damage enemies in Cyber Space and when Power Boost is active."
+            ]
+         }
+      ]
+   },
+   "IniFile": "mod.ini"
+}

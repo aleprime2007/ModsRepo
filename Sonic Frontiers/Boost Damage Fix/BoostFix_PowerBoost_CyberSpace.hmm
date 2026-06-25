@@ -1,0 +1,80 @@
+Code "Boost Damage Fix" in "Gameplay/Skills" by "aleprime2007"
+//
+    #include "BlackboardStatus" noemit
+
+    #lib "Player"
+
+    using System.Collections.Generic;
+
+    static bool _isDamageEnabled = false;
+
+    static bool _isRunBoost = false;
+
+    static List<Sonic.StateID> _boostStates = new()
+    {
+        Sonic.StateID.StateAirBoost,
+        Sonic.StateID.StateBumpJump,
+        Sonic.StateID.StateGrind,
+        Sonic.StateID.StateGrindDamage,
+        Sonic.StateID.StateGrindJump,
+        Sonic.StateID.StateGrindRoot,
+        Sonic.StateID.StateGrindStep,
+        Sonic.StateID.StateJump,
+        Sonic.StateID.StateLeftStepRun,
+        Sonic.StateID.StateRightStepRun,
+        Sonic.StateID.StateRun,
+        Sonic.StateID.StateWallMove
+    };
+
+    static List<Sonic.StateID> _damageStates = new()
+    {
+        Sonic.StateID.StateJump,
+        Sonic.StateID.StateDoubleJump,
+        Sonic.StateID.StateSpinDash,
+        Sonic.StateID.StateHomingAttack,
+        Sonic.StateID.StateStompingDown,
+        Sonic.StateID.StateStompingLand,
+        Sonic.StateID.StateBounceJump,
+        Sonic.StateID.StateDropDash,
+        Sonic.StateID.StateSliding
+    };
+//
+{
+    void EnableDamage()
+    {
+        Player.Collision.SetCollisionSphere(Player.CollisionType.Damage, 1.0f);
+        Player.Collision.SetEntityCollision(false);
+        _isDamageEnabled = true;
+    }
+
+    void DisableDamage()
+    {
+        Player.Collision.SetCollisionSphere(Player.CollisionType.Default, 1.0f);
+        Player.Collision.SetEntityCollision(true);
+        _isDamageEnabled = false;
+    }
+
+    Sonic.StateID stateId = Player.State.GetCurrentStateID<Sonic.StateID>();
+
+    if (_boostStates.Contains(stateId) && IS_STATE_FLAG(IsBoost) && (IS_WORLD_FLAG(IsPowerBoost) || IS_WORLD_FLAG(IsCyberSpace)))
+    {
+        if (stateId == Sonic.StateID.StateRun)
+        {
+            if (!_isRunBoost)
+            {
+                EnableDamage();
+                _isRunBoost = true;
+            }
+        }
+        else
+        {
+            if (!_isDamageEnabled) EnableDamage();
+            _isRunBoost = false;
+        }
+    }
+    else
+    {
+        if (_isDamageEnabled && !_damageStates.Contains(stateId)) DisableDamage();
+        _isRunBoost = false;
+    }
+}
