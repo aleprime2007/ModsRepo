@@ -31,6 +31,8 @@ Code "Boost Damage Fix" in "Gameplay/Skills" by "aleprime2007"
         Sonic.StateID.StateJump,
         Sonic.StateID.StateDoubleJump,
         Sonic.StateID.StateSpinDash,
+        Sonic.StateID.StateSpinBoostCharge,
+        Sonic.StateID.StateSpinBoost,
         Sonic.StateID.StateHomingAttack,
         Sonic.StateID.StateStompingDown,
         Sonic.StateID.StateStompingLand,
